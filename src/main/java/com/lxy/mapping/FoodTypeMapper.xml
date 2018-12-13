@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lxy.dao.FoodTypeDao" >
+  <resultMap id="BaseResultMap" type="com.lxy.model.FoodTypeDO" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, type_name
+  </sql>
+  <select id="getFoodType" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" /> FROM food_type
+    <where>
+    	<if test="typeName != null and typeName != ''">
+    		type_name LIKE CONCAT("%",#{typeName,jdbcType=VARCHAR},"%")
+    	</if>
+    </where>
+  </select>
+</mapper>
